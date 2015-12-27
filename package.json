@@ -1,7 +1,7 @@
 {
   "name": "gulp-watch-ejs",
   "version": "0.2.0",
-  "description": "Gulp watch plugin ejs templates and their includes",
+  "description": "Gulp plugin for watching ejs templates and their includes",
   "keywords": [
     "gulpplugin",
     "gulp",
