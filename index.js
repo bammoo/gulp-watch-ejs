@@ -20,13 +20,40 @@ var watchIncludes = function(filePath, content, cb, pipeCb) {
   
   var reg = /<%+.*include\s+(\S*)\s*%>/g;
 
-  var matches, incList = [];
+  var matches, incList = [], oldIncList;
   while (matches = reg.exec(content)) {
     var pa = path.join(path.dirname(filePath), matches[1]);
     incList.push(pa);
   }
+  incList = incList
+    // In case including a sub template many times
+    .filter(function(v, i, s) {
+      return s.indexOf(v) === i;
+    })
+    // Sort for checking below
+    .sort();
+  // If a previous watch stream is active...
+  var watchStream = _streams[filePath];
+  if(watchStream) {
+    oldIncList = watchStream._incList;
+
+    // Check to ensure the @import arrays are identical.
+    if(oldIncList.length && oldIncList.join() === incList.join()) {
+      pipeCb(); return; // Don't do anything further!
+    }
+
+    // Clean up previous watch stream
+    watchStream.end();
+    watchStream.unpipe();
+    watchStream.close();
+    delete _streams[filePath];
+  }
   if(incList.length) {
-    watch(incList, {}, cb)
+    // Generate new watch stream
+    watchStream = _streams[filePath] = watch(incList, {}, cb);
+
+    // Expose @import list on the stream
+    watchStream._incList = incList;
   }
   pipeCb();
 }
