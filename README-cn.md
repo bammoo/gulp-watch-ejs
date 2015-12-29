@@ -1,16 +1,14 @@
 # [gulp](http://gulpjs.com)-watch-ejs [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
-> Gulp plugin for using [gulp-watch][watch-url] to watch [ejs][url-ejs] templates and sub templates included by `<% include xx %>`
+> Gulp 插件，使用 [gulp-watch][watch-url] 监听 [ejs][url-ejs] 模板及 `<% include xx %>` 的子模板并实时编译。
 
-[中文文档](README-cn.md)
-
-## Install
+## 安装
 
 ```sh
 $ npm install --save-dev gulp-watch-ejs
 ```
 
 
-## Usage
+## 使用
 
 ```js
 var gulp = require('gulp');
@@ -24,11 +22,11 @@ gulp.task('default', function () {
 ```
 
 
-## Options
+## 配置
 
 ### `watchEjs(glob, [options, settings, callback])`
 
-Returns pass-through stream (actually is a Duplex Stream which is created by [gulp-watch][watch-url] underneath), that will emit vinyl files (with additional `event` property) that corresponds to event on file-system.
+传回去的其实是一个在 [gulp-watch][watch-url] 中创建的 Duplex Stream。
 
 
 ## License
