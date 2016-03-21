@@ -7,7 +7,7 @@ var ejs = require('ejs');
 var path = require('path');
 var watch = require('gulp-watch');
 
-var PLUGIN_NAME = 'gulp-ejs';
+var PLUGIN_NAME = 'gulp-watch-ejs';
 
 // Name of the event fired when @imports cause file to change
 // (Overwrites the current file.event set by gulp-watch/gaze)
